@@ -7,9 +7,9 @@ import com.varun.ecommerce.repository.CartItemRepo;
 import com.varun.ecommerce.repository.CartRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.concurrent.atomic.AtomicLong;
 
 @Service
 @RequiredArgsConstructor
@@ -32,6 +32,7 @@ public class CartService implements ICartService{
     }
 
     @Override
+    @Transactional
     public void clearCart(Long id) {
         Cart cart = getCart(id);
         cartItemRepo.deleteAllByCartId(id);

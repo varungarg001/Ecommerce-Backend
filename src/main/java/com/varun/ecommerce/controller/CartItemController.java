@@ -3,7 +3,6 @@ package com.varun.ecommerce.controller;
 
 import com.varun.ecommerce.constants.Messages;
 import com.varun.ecommerce.exception.ResourceNotFound;
-import com.varun.ecommerce.repository.CartRepo;
 import com.varun.ecommerce.response.ApiResponse;
 import com.varun.ecommerce.service.cart.ICartItemService;
 import com.varun.ecommerce.service.cart.ICartService;
@@ -11,8 +10,6 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.concurrent.atomic.AtomicLong;
 
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
