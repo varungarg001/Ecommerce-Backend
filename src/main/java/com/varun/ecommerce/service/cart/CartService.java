@@ -50,10 +50,17 @@ public class CartService implements ICartService{
                 .reduce(BigDecimal.ZERO,BigDecimal::add);
     }
 
+
+
     @Override
     public Long initializeCart(){
         Cart newCart=new Cart();
         Cart saved = cartRepo.saveAndFlush(newCart);
         return saved.getId();
+    }
+
+    @Override
+    public Cart getCartByUserId(Long userId) {
+        return cartRepo.findByUserId(userId);
     }
 }
