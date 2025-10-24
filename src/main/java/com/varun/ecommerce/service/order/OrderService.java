@@ -94,7 +94,8 @@ public class OrderService implements IOrderService{
        return  orderRepo.findByUserId(userId).stream().map(this::getOrderDto).toList();
     }
 
-    private OrderDto getOrderDto(Order order){
+    @Override
+    public OrderDto getOrderDto(Order order){
         return modelMapper.map(order,OrderDto.class);
     }
 }

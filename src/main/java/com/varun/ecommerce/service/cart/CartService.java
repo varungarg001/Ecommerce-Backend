@@ -3,6 +3,7 @@ package com.varun.ecommerce.service.cart;
 import com.varun.ecommerce.exception.ResourceNotFound;
 import com.varun.ecommerce.model.Cart;
 import com.varun.ecommerce.model.CartItem;
+import com.varun.ecommerce.model.User;
 import com.varun.ecommerce.repository.CartItemRepo;
 import com.varun.ecommerce.repository.CartRepo;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -53,10 +55,13 @@ public class CartService implements ICartService{
 
 
     @Override
-    public Long initializeCart(){
-        Cart newCart=new Cart();
-        Cart saved = cartRepo.saveAndFlush(newCart);
-        return saved.getId();
+    public Cart initializeCart(User user){
+        return Optional.ofNullable(getCartByUserId(user.getId()))
+                .orElseGet(()->{
+                    Cart cart=new Cart();
+                    cart.setUser(user);
+                    return cartRepo.save(cart);
+                });
     }
 
     @Override

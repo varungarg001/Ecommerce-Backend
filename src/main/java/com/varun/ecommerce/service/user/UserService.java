@@ -1,5 +1,6 @@
 package com.varun.ecommerce.service.user;
 
+import com.varun.ecommerce.dto.UserDto;
 import com.varun.ecommerce.exception.AlreadyExistsException;
 import com.varun.ecommerce.exception.UserNotFound;
 import com.varun.ecommerce.model.User;
@@ -7,6 +8,7 @@ import com.varun.ecommerce.repository.UserRepo;
 import com.varun.ecommerce.request.CreateUserRequest;
 import com.varun.ecommerce.request.UpdateUserRequest;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -16,6 +18,8 @@ import java.util.Optional;
 public class UserService implements IUserService{
 
     private final UserRepo userRepo;
+
+    private final ModelMapper modelMapper;
 
     @Override
     public User getUserById(Long userId) {
@@ -52,5 +56,10 @@ public class UserService implements IUserService{
         userRepo.findById(userId).ifPresentOrElse(userRepo::delete,()->{
             throw new UserNotFound("user not found");
         });
+    }
+
+    @Override
+    public UserDto convertToUserDto(User user){
+        return modelMapper.map(user,UserDto.class);
     }
 }

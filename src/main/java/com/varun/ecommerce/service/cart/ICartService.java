@@ -1,6 +1,7 @@
 package com.varun.ecommerce.service.cart;
 
 import com.varun.ecommerce.model.Cart;
+import com.varun.ecommerce.model.User;
 
 import java.math.BigDecimal;
 
@@ -10,7 +11,7 @@ public interface ICartService {
     void clearCart(Long id);
     BigDecimal getTotalPrice(Long id);
 
-    Long initializeCart();
+    Cart initializeCart(User user);
 
     Cart getCartByUserId(Long userId);
 
